@@ -1,0 +1,24 @@
+image: hub.estaleiro.serpro/pipeline/python:3.11-debian
+
+variables:
+  GIT_SSL_NO_VERIFY: "true"
+
+pages:
+  stage: deploy
+  script:
+  - cd docs/source/
+  - mkdir html
+  - pip install -U sphinx
+  - pip install sphinx-tabs
+  - pip install sphinx_bootstrap_theme
+  - pip install sphinx_rtd_theme
+  - pip install sphinx-notfound-page
+  - sphinx-build -b html . public
+  - mv public ../..
+  - pip install sphinx-simplepdf
+  - make simplepdf
+  artifacts:
+    paths:
+    - public
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH

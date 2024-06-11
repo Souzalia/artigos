@@ -1,0 +1,18 @@
+sphinx:
+  builder: html
+  configuration: source/conf.py
+
+version: 2
+
+formats:
+  - pdf
+
+python:
+#  version: 3
+  install:
+    - method: pip
+      path: .
+    - requirements: source/requirements.txt
+formats:
+  - pdf
+
